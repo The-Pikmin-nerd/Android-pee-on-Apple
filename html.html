@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>return of apple pub </title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: black;
+        }
+
+        #animation-container {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Remplit l'écran sans déformer l'image */
+            border: none;
+            position: absolute;
+        }
+
+        #stop-message {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 2rem;
+            text-align: center;
+            display: none;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="animation-container">
+        <!-- Intégration du GIF dans une iframe -->
+        <iframe src="https://tenor.com/embed/12358057093181089974" allowfullscreen></iframe>
+        <!-- Message d'arrêt qui s'affiche après la fin de l'animation -->
+        <p id="stop-message">Animation terminée !</p>
+    </div>
+
+    <script>
+        // Fonction pour activer le plein écran
+        function enableFullscreen() {
+            const docElm = document.documentElement;
+            if (docElm.requestFullscreen) {
+                docElm.requestFullscreen();
+            } else if (docElm.mozRequestFullScreen) { // Firefox
+                docElm.mozRequestFullScreen();
+            } else if (docElm.webkitRequestFullscreen) { // Chrome, Safari, Opera
+                docElm.webkitRequestFullscreen();
+            } else if (docElm.msRequestFullscreen) { // IE/Edge
+                docElm.msRequestFullscreen();
+            }
+        }
+
+        // Active le mode plein écran au chargement de la page
+        window.addEventListener('load', enableFullscreen);
+
+        // Configure la durée de l'animation avant l'arrêt (en millisecondes)
+        const animationDuration = 10000; // 10 secondes
+
+        // Fonction pour arrêter l'animation
+        function stopAnimation() {
+            const animationContainer = document.getElementById('animation-container');
+            const stopMessage = document.getElementById('stop-message');
+            
+            // Cache l'animation GIF
+            animationContainer.innerHTML = ""; // Supprime le contenu de l'iframe
+            animationContainer.style.backgroundColor = "black";
+
+            // Affiche le message d'arrêt
+            stopMessage.style.display = 'block';
+        }
+
+        // Arrête l'animation après la durée définie
+        setTimeout(stopAnimation, animationDuration);
+    </script>
+</body>
+</html>
